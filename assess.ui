@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>30</y>
+      <width>401</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>Отзыв о блюдах столовой </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="what_to_do">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>661</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Напротив каждого блюда выставите свою оценку, где 0 - минимальное значение, 10 - максимальное</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>140</y>
+      <width>631</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="spn"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QSpinBox" name="spn_4"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QSpinBox" name="spn_3"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="spn_2"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QSpinBox" name="spn_5"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="dish">
+       <property name="minimumSize">
+        <size>
+         <width>520</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QComboBox" name="dish_2"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QComboBox" name="dish_3"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QComboBox" name="dish_4"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QComboBox" name="dish_5"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="send">
+    <property name="geometry">
+     <rect>
+      <x>562</x>
+      <y>450</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Отправить отзыв</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="mistake">
+    <property name="geometry">
+     <rect>
+      <x>52</x>
+      <y>450</y>
+      <width>500</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Меню </string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Информация от опрошенных</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <action name="action">
+   <property name="text">
+    <string>Пн</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
