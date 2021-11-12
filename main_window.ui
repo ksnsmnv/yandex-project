@@ -58,7 +58,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Оценить сегодняшнее меню</string>
+    <string>Оценить меню столовой</string>
    </property>
   </widget>
   <widget class="QPushButton" name="menu">

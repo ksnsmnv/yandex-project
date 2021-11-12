@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>570</width>
-    <height>345</height>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -133,6 +133,68 @@
      <string notr="true">button_group</string>
     </attribute>
    </widget>
+   <widget class="QLabel" name="title_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>290</y>
+      <width>501</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Меню буфета</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="buffet_dish">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>340</y>
+      <width>521</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>-3</x>
+      <y>270</y>
+      <width>581</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="information">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>370</y>
+      <width>521</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Посмотреть информацию</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -151,7 +213,6 @@
    <addaction name="thu"/>
    <addaction name="fri"/>
    <addaction name="sat"/>
-   <addaction name="buffet"/>
   </widget>
   <action name="mon">
    <property name="text">
@@ -183,7 +244,7 @@
     <string>Сб</string>
    </property>
   </action>
-  <action name="buffet">
+  <action name="action">
    <property name="text">
     <string>Буфет</string>
    </property>
