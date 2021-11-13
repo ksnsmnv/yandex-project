@@ -5,7 +5,6 @@ import datetime
 import matplotlib.pyplot as plt
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog
-
 CON = sqlite3.connect('films_db.splite')
 CUR = CON.cursor()
 WEEKDAYS = {'Пн': 'понедельник', 'Вт': 'вторник', 'Ср': 'среду', 'Чт': 'четверг',
@@ -25,19 +24,22 @@ class MainWindow(QMainWindow):
     def open_new_window(self):
         if self.sender() == self.menu:
             self.new_module = MenuWidget(self, "menu.ui")
+            self.new_module.show()
         elif self.sender() == self.assess:
             self.new_module = AssessWidget(self, "assess.ui")
+            self.new_module.show()
         elif self.sender() == self.info:
             self.new_module = InfoWidget(self, "info.ui")
+            self.new_module.show()
         elif self.sender() == self.changes:
             self.entering_password()
-        self.new_module.show()
-        
+
     def entering_password(self):
         password, ok_pressed = QInputDialog.getText(
             self, "Ввод пароля", "Введите пароль доступа:")
         if password == '123456789' and ok_pressed:
             self.new_module = ChangesWidget(self, "changes.ui")
+            self.new_module.show()
         elif ok_pressed:
             self.entering_password()
         else:
@@ -72,10 +74,12 @@ class MenuWidget(QMainWindow):
         self.dish_3.setText(data_in_dishes[2])
         self.dish_4.setText(data_in_dishes[3])
         self.dish_5.setText(data_in_dishes[4])
+
         # добавление списка блюд в списке
     def set_buffet(self):
         all_dishes = [i[0] for i in CUR.execute('SELECT dish FROM buffet').fetchall()]
         self.buffet_dish.addItems(all_dishes)
+
     # получение меню в соответствии с днями недели
     def run(self):
         self.title.setText(self.title.text()[:8] + WEEKDAYS[self.sender().text()])
@@ -142,12 +146,13 @@ class MenuWidget(QMainWindow):
             sizes = float(proteins[0]), float(fats[0]), float(carbs[0])
         # если запятая вместо точки
         except ValueError:
-            proteins[0] = proteins[0][:proteins[0].find(',')] + '.' + \
-                          proteins[0][proteins[0].find(',') + 1:]
-            fats[0] = fats[0][:fats[0].find(',')] + '.' + \
-                      fats[0][fats[0].find(',') + 1:]
-            carbs[0] = carbs[0][:carbs[0].find(',')] + '.' + \
-                       carbs[0][carbs[0].find(',') + 1:]
+            proteins[0], fats[0], carbs[0] = str(proteins[0]), str(fats[0]), str(carbs[0])
+            if ',' in proteins[0]:
+                proteins[0] = proteins[0][:proteins[0].find(',')] + '.' + proteins[0][proteins[0].find(',') + 1:]
+            if ',' in fats[0]:
+                fats[0] = fats[0][:fats[0].find(',')] + '.' + fats[0][fats[0].find(',') + 1:]
+            if ',' in carbs[0]:
+                carbs[0] = carbs[0][:carbs[0].find(',')] + '.' + carbs[0][carbs[0].find(',') + 1:]
             sizes = float(proteins[0]), float(fats[0]), float(carbs[0])
         fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels)
@@ -173,6 +178,7 @@ class AssessWidget(QMainWindow):
         self.cafe.clicked.connect(self.set_dishes)
         self.lunch.clicked.connect(self.set_dishes)
     # установка мин. и макс. на spinbox
+
     def set_min_max(self):
         self.number_b.setMinimum(1)
         self.number_l.setMinimum(1)
@@ -252,24 +258,24 @@ class InfoWidget(QMainWindow):
         self.textEdit.setText(self.set_text())
 
     def set_text(self):
-        file = open('feedback.txt', 'r')
-        data = file.read().split('\n')
-        info = {}
-        for i in data:
-            if i[:-2] in info:
-                info[i[:-2]].append(int(i[-1]))
-            else:
-                info[i[:-2]] = [int(i[-1])]
-        if info != {}:
+        try:
+            file = open('feedback.txt', 'r')
+            data = file.read().split('\n')
+            info = {}
+            for i in data:
+                if i[:-2] in info:
+                    info[i[:-2]].append(int(i[-1]))
+                else:
+                    info[i[:-2]] = [int(i[-1])]
             for i in info:
                 info[i] = round(mean(info[i]), 2)
-        else:
+            popular = sorted(info, key=lambda x: info[x], reverse=True)
+            answer_to_return = ''
+            for i in popular:
+                answer_to_return += i + ' ' + str(info[i]) + '\n'
+            return answer_to_return
+        except FileNotFoundError:
             return 'Информации пока нет.'
-        popular = sorted(info, key=lambda x: info[x], reverse=True)
-        answer_to_return = ''
-        for i in popular:
-            answer_to_return += i + ' ' + str(info[i]) + '\n'
-        return answer_to_return
 
     def initUI(self, args):
         uic.loadUi('feedback.ui', self)
@@ -295,8 +301,9 @@ class ChangesWidget(QMainWindow):
             self.title = self.title[:16] + 'буфета'
             self.table == 'buffet'
             print('буфет')
+            
     # изменеия в таблице буфета
-    def change_buffet(self):
+    def change_buf(self):
         self.cur.execute("""UPDATE buffet SET dish = ? WHERE dish = ?""", (self.new_name, self.name))
         self.con.commit()
         self.cur.execute("""UPDATE buffet SET weight = ? WHERE dish = ?""", (self.weight, self.new_name))
@@ -337,7 +344,7 @@ class ChangesWidget(QMainWindow):
             if self.table == 'menu':
                 self.change_dish()
             else:
-                self.change_buffet()
+                self.change_buf()
         except ValueError:
             self.for_errors.setText('Неправильный формат ввода')
 
